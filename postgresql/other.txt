@@ -1,0 +1,22 @@
+Для раскатки в прод в плейбуке нужно указать интерпретатор (см. скрин)
+
+На самом хосте нужно установить следующие пакеты:
+
+sudo yum install epel-release (не обязательно)
+
+sudo yum groupinstall "Development Tools" (для сборки кода, по сути ставит компилятор, для прогона psycopg с питона 2.7 на 3.6)
+
+sudo yum install python3-devel postgresql-devel (библиотеки для питона и для постгри)
+
+pip3 install psycopg2 (наш любимый адаптер для БД в питоне)
+=================================================================================
+
+Альтернативно можно как говорил Коля (на вм-ке сработало, на проде не тестил):
+
+sudo yum install postgresql-devel python-devel gcc
+
+curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py
+
+python get-pip.py pip==20.3.4
+
+python -m pip install psycopg2
