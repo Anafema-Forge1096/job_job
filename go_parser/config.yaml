@@ -1,0 +1,4 @@
+server: "imap.tvoi.server:993"
+login: "tvo.email"
+password: "PASSWORD"
+sender_email: "komu@mail.ru"
