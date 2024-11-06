@@ -68,7 +68,7 @@ listen_addresses = '127.0.0.1, {{ansible_default_ipv4.address}}' 		# what IP add
 					# defaults to 'localhost'; use '*' for all
 					# (change requires restart)
 port = 5432			# (change requires restart)
-max_connections = 1500			# (change requires restart)
+max_connections = 100			# (change requires restart)
 #superuser_reserved_connections = 3	# (change requires restart)
 unix_socket_directories = '/var/run/postgresql'	# comma-separated list of directories
 					# (change requires restart)
@@ -260,7 +260,8 @@ min_wal_size = 80MB
 #checkpoint_flush_after = 256kB		# measured in pages, 0 disables
 #checkpoint_warning = 30s		# 0 disables
 
-{% if postgresql_version >= 15 %}
+#{% if postgresql_version >= 15 %}
+{% if postgresql_version | int >= 15 %}
 
 # - Prefetching during recovery -
 
@@ -274,7 +275,8 @@ min_wal_size = 80MB
 #archive_mode = off		# enables archiving; off, on, or always
 				# (change requires restart)
 
-{% if postgresql_version >= 15 %}
+#{% if postgresql_version >= 15 %}
+{% if postgresql_version | int >= 15 %}
 
 # - Prefetching during recovery -
 
@@ -574,8 +576,9 @@ log_rotation_size = 10MB		# Automatic rotation of logfiles will
 					# are logged regardless of their duration; 1.0 logs all
 					# statements from all transactions, 0.0 never logs
 
+{% if postgresql_version | int >= 15 %}
 
-{% if postgresql_version >= 15 %}
+#{% if postgresql_version >= 15 %}
 #log_startup_progress_interval = 10s    # Time between progress updates for
                                         # long-running startup operations.
                                         # 0 disables the feature, > 0 indicates
@@ -660,7 +663,8 @@ cluster_name = '{{ postgresql_version }}/main'			# added to process titles if no
 #track_wal_io_timing = off
 #track_functions = none                 # none, pl, all
 
-{% if postgresql_version < 15 %}
+{% if postgresql_version | int >= 15 %}
+#{% if postgresql_version < 15 %}
 stats_temp_directory = '/var/run/postgresql/{{ postgresql_version }}-main.pg_stat_tmp'
 {% endif %}																   
 

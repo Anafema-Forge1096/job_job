@@ -141,3 +141,30 @@ MIT / BSD
 ## Author Information
 
 This role was created in 2016 by [Jeff Geerling](https://www.jeffgeerling.com/), author of [Ansible for DevOps](https://www.ansiblefordevops.com/).
+
+===================================================================================================
+Для установки на CentOS 7 требуется предварительно установить на хост следующие пакеты:
+
+sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/.repo 
+sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/.repo 
+sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/.repo
+
+**На самом хосте нужно установить следующие пакеты:**
+
+sudo yum install epel-release (не обязательно)
+
+sudo yum groupinstall "Development Tools" (для сборки кода, по сути ставит компилятор, для прогона psycopg с питона 2.7 на 3.6)
+
+sudo yum install python3-devel postgresql-devel (библиотеки для питона и для постгри)
+
+**pip3 install psycopg2 (наш любимый адаптер для БД в питоне)**
+
+Альтернативно можно как говорил Коля (на вм-ке сработало, на проде не тестил):
+
+sudo yum install postgresql-devel python-devel gcc
+
+curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py
+
+python get-pip.py pip==20.3.4
+
+python -m pip install psycopg2
