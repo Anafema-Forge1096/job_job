@@ -1,0 +1,13 @@
+[Unit]
+Description=Email Metrics Exporter for Prometheus
+After=network.target
+
+[Service]
+ExecStart=/path/to/your/email-metrics
+Restart=always
+User=your_user
+WorkingDirectory=/path/to/your/
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target
