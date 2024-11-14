@@ -1,0 +1,19 @@
+[Unit]
+Description=data synchronizer service
+After=syslog.target network.target
+
+[Service]
+SuccessExitStatus=143
+
+User=nifi
+Group=nifi
+
+Type=simple
+
+Environment="JAVA_OPTIONS= -Xms{{ram_size | default('5120') }}m -Xmx{{ram_size | default('5120') }}m -server -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Dlogging.config=/opt/data_synchronizer/config/logback.xml -DLOGFILE=/opt/data_synchronizer/logs/data-synchronizer.log -Dspring.config.location=/opt/data_synchronizer/config/application.properties -Djavax.net.ssl.trustStore=/opt/data_synchronizer/keystorage/ks.jks -Djavax.net.ssl.trustStorePassword=changeit -Dspring.cloud.vault.token=hvs.aYDJXytDYfxO0scEdfM7Ij6j"
+WorkingDirectory=/opt/data_synchronizer
+ExecStart=/usr/bin/java $JAVA_OPTIONS -jar data_synchronizer.jar
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target
