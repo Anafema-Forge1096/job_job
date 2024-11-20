@@ -1,15 +1,25 @@
 - name: Docker installing
   hosts: all
-  become: True
+  become: true
 
   tasks:
-    
-    - name: Upgrade packages
-      command: yum -y update
+    - name: Install required packages for Docker
+      dnf:
+        name:
+          - dnf-utils
+          - device-mapper-persistent-data
+          - lvm2
+        state: present
+
+    - name: Add Docker repository
+      command: dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
     - name: Install Docker
-      yum:
-        name: docker
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
         state: present
 
     - name: Start Docker service
@@ -17,8 +27,3 @@
         name: docker
         state: started
         enabled: yes
-
-    - name: Install Docker Compose
-      yum:
-        name: docker-compose
-        state: present
