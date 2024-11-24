@@ -27,3 +27,13 @@
         name: docker
         state: started
         enabled: yes
+
+    - name: Add users to docker group
+      user:
+        name: "{{ item }}"
+        groups: docker
+        append: yes
+      loop:
+        - mpopov
+        - kmendeleev
+        - kosin
