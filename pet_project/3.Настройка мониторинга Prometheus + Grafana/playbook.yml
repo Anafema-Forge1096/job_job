@@ -2,13 +2,13 @@
   hosts: node_postgres
   become: yes
   tasks:
-    - name: Копирование compose
+    - name: Копирование compose_np
       copy:
         src: /home/kmendeleev/git_hub/job_job/pet_project/3.Настройка мониторинга Prometheus + Grafana/compose_np.yml
         dest: /home/kmendeleev/
         mode: '0644'
 
-    - name: Запуск compose
+    - name: Запуск compose_np
       command: docker compose -f /home/kmendeleev/compose_np.yml up -d
       args:
         chdir: /home/kmendeleev
@@ -41,22 +41,22 @@
       copy:
         src: /home/kmendeleev/git_hub/job_job/pet_project/3.Настройка мониторинга Prometheus + Grafana/prometheus.yml
         dest: /etc/prometheus/prometheus.yml
-        mode: '0644'
+        mode: '0755'
       when: not prometheus_dir.stat.exists
 
-    - name: Копирование compose.yml в нужную директорию
+    - name: Копирование compose_gf.yml в нужную директорию
       copy:
-        src: /home/kmendeleev/git_hub/job_job/pet_project/3.Настройка мониторинга Prometheus + Grafana/compose.yml
-        dest: /home/kmendeleev/compose.yml
-        mode: '0644'
+        src: /home/kmendeleev/git_hub/job_job/pet_project/3.Настройка мониторинга Prometheus + Grafana/compose_gf.yml
+        dest: /home/kmendeleev/compose_gf.yml
+        mode: '0755'
 
-    - name: Проверка наличия compose.yml
+    - name: Проверка наличия compose_gf.yml
       stat:
-        path: /home/kmendeleev/compose.yml
+        path: /home/kmendeleev/compose_gf.yml
       register: compose_file
 
     - name: Запуск docker compose для установки образов и создания контейнеров
-      command: docker compose -f /home/kmendeleev/compose.yml up -d
+      command: docker compose -f /home/kmendeleev/compose_gf.yml up -d
       args:
         chdir: /home/kmendeleev
 
