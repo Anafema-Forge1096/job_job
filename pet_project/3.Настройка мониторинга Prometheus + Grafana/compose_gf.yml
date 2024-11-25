@@ -21,11 +21,13 @@ services:
   grafana:
     image: grafana/grafana
     restart: always
+    volumes:
+      - /etc/grafana:/var/lib/grafana
     ports:
       - "3000:3000"
     networks:
       - monitoring
-
+    user: "root:root"
 networks:
   monitoring:
     driver: bridge

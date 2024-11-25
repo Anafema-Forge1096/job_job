@@ -37,6 +37,18 @@
         mode: '0755'
       when: not prometheus_dir.stat.exists
 
+    - name: Проверка наличия директории grafana
+      stat:
+        path: /etc/grafana
+      register: grafana_dir
+
+    - name: Создание директории grafana, если не существует
+      file:
+        path: /etc/grafana
+        state: directory
+        mode: '0755'
+      when: not grafana_dir.stat.exists
+
     - name: Копирование prometheus.yml в нужную директорию
       copy:
         src: /home/kmendeleev/git_hub/job_job/pet_project/3.Настройка мониторинга Prometheus + Grafana/prometheus.yml
