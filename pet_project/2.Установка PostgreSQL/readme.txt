@@ -54,12 +54,11 @@ max_wal_senders = 4
 Дописать хост для подключения:
 
 host    replication     all         10.10.10.10/32        md5
+host    test    postgres    10.10.10.10/32    md5
 
 3) Создать публикацию:
 
-CREATE PUBLICATION test FOR TABLE test.test, test.test2, test.test3, test.test4, test.test5; либо
-
-CREATE PUBLICATION test FOR ALL TABLES IN SCHEMA test;
+CREATE PUBLICATION test FOR TABLE test.test1, test.test2, test.test3, test.test4, test.test5; 
 
 Чтобы добавить новую таблицу в публикацию используйте:
 
