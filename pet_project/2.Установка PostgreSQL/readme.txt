@@ -72,7 +72,7 @@ ALTER PUBLICATION test ADD TABLE test.table100,
 На реплицируемом сервере создается подписка на публикацию с реплицирующего сервера:
 
 CREATE SUBSCRIPTION test
-CONNECTION 'host=172.24.21.53 port=5432 user=postgres password=admin1234 dbname=test'
+CONNECTION 'host=10.255.254.102 port=5432 user=postgres password=qQ345zpHxn# dbname=test'
 PUBLICATION test;
 
 Выполнить рестарт сервиса
