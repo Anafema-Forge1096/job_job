@@ -112,14 +112,14 @@
       
     - name: Копирование filebeat.yml в нужную директорию
       copy:
-        src: /home/kosin/job_job/pet_project/5.Настройка мониторинга через ELK/filebeat.yml
+        src: /home/kmendeleev/git_hub/job_job/pet_project/5.Настройка мониторинга через ELK/filebeat.yml
         dest: /etc/filebeat/filebeat.yml
         mode: '0755'
-      when: not filebeat_dir.stat.exists
+#      when: not filebeat_dir.stat.exists
       
     - name: Копирование compose_filebeat
       copy:
-        src: /home/kosin/job_job/pet_project/5.Настройка мониторинга через ELK/compose_filebeat.yml
+        src: /home/kmendeleev/git_hub/job_job/pet_project/5.Настройка мониторинга через ELK/compose_filebeat.yml
         dest: /home/kosin/compose_filebeat.yml
         mode: '0755'
      
